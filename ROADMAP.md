@@ -26,7 +26,7 @@ Current state, verified evidence, and open gaps are summarised in
 - **Completion date:** 2026-10-05
 - **Commit:** see `git log --oneline` (`phase-00: ...`)
 
-### Phase 1 — MT5 Indicator v1.0 `[ ]`
+### Phase 1 — MT5 Indicator v1.0 `[x]` (implementation + 53 tests green; commit pending)
 
 - **Objective:** implement the indicator with the full state machine.
 - **Tasks:** session detection; NY timezone conversion; Opening Range;
@@ -40,7 +40,7 @@ Current state, verified evidence, and open gaps are summarised in
 - **Acceptance criteria:** full pytest suite green; indicator source
   passes structural checks; all 12 signal states and all 14 no-trade
   reasons implemented.
-- **Completion date:** TBD
+- **Completion date:** 2026-10-05
 
 ### Phase 2 — Historical Signal Engine `[ ]`
 

@@ -2,12 +2,13 @@
 
 ## Current Status
 
-- **Phase:** 0 — Project Initialization
-- **Status:** COMPLETE (committed, pushed)
-- **Overall Progress:** 1 of 13 phases (0–12). Phases 1–4 next.
+- **Phase:** 1 — MT5 Indicator v1.0 + Python Core
+- **Status:** COMPLETE (53 tests green; to be committed)
+- **Overall Progress:** 2 of 13 phases (0–12). Phase 2 next.
 
 ## Last Completed Work
 
+- Phase 1 (resumed after killed session): `engine/session.py`, `engine/bias.py`, `engine/signals.py`, `MQL5/Indicators/NY_OR_Pullback_v1.mq5`, and 4 test files (53 tests green). Orphaned pre-kill modules (`config`, `ny_time`, `bars`, `indicators`) audited and kept.
 - Phase 0: repository inspection, environment verification, project
   skeleton, and full documentation structure created.
 - Environment verified: Python 3.10.12, pytest available, git
@@ -16,7 +17,7 @@
 
 ## Current Implementation
 
-- Documentation skeleton only. No engine code yet.
+- Python core (config, ny_time, bars, indicators, session, bias, signals) + MQL5 indicator v1.0 structural draft.
 - Files: `README.md`, `README_FA.md` (Persian),
   `docs/STRATEGY_SPEC.md`, `docs/PARAMETER_REGISTRY.md`,
   `docs/ARCHITECTURE.md`, plus the tracking documents in the repo root.
@@ -32,7 +33,7 @@ FIXED; none have been optimized.
 
 ## Tests Completed
 
-- None yet (Phase 0 is documentation only).
+- 53 tests: `test_core.py`, `test_strategy.py`, `test_signals.py`, `test_mql5_structure.py` — all green.
 
 ## Test Results
 
@@ -80,10 +81,7 @@ Successful (verify with `git status` after pull)
 
 ## Next Exact Task
 
-- Phase 1: implement `MQL5/Indicators/NY_OR_Pullback_v1.mq5` and the
-  Python core modules (`config.py`, `ny_time.py`, `bars.py`,
-  `indicators.py`, `session.py`, `bias.py`, `signals.py`) with full
-  test coverage.
+- Phase 2: implement `engine/data/` (schema, loader, synthetic), `engine/replay.py`, `engine/export.py` with determinism + prefix-consistency tests (EXP-001, EXP-002).
 
 ## Remaining Phase Tasks
 
