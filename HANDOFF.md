@@ -2,9 +2,9 @@
 
 ## Current Status
 
-- **Phase:** 1 — MT5 Indicator v1.0 + Python Core
-- **Status:** COMPLETE (53 tests green; to be committed)
-- **Overall Progress:** 2 of 13 phases (0–12). Phase 2 next.
+- **Phase:** 2 — Historical Signal Engine
+- **Status:** COMPLETE (62 tests green; to be committed)
+- **Overall Progress:** 3 of 13 phases (0–12). Phase 3 next.
 
 ## Last Completed Work
 
@@ -33,7 +33,7 @@ FIXED; none have been optimized.
 
 ## Tests Completed
 
-- 53 tests: `test_core.py`, `test_strategy.py`, `test_signals.py`, `test_mql5_structure.py` — all green.
+- 62 tests (incl. `test_replay.py`: determinism, prefix-consistency, missing-data, loader, schema) — all green. Synthetic replay: 4 signals / 5 days `[SYNTHETIC]`.
 
 ## Test Results
 
@@ -81,7 +81,7 @@ Successful (verify with `git status` after pull)
 
 ## Next Exact Task
 
-- Phase 2: implement `engine/data/` (schema, loader, synthetic), `engine/replay.py`, `engine/export.py` with determinism + prefix-consistency tests (EXP-001, EXP-002).
+- Phase 3: implement `engine/backtest/` (costs, simulator, metrics) + `engine/cli.py backtest` with hand-computed fixtures (EXP-003, EXP-004).
 
 ## Remaining Phase Tasks
 

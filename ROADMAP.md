@@ -42,7 +42,7 @@ Current state, verified evidence, and open gaps are summarised in
   reasons implemented.
 - **Completion date:** 2026-10-05
 
-### Phase 2 — Historical Signal Engine `[ ]`
+### Phase 2 — Historical Signal Engine `[x]`
 
 - **Objective:** reconstruct historical signals without look-ahead.
 - **Tasks:** historical signal reconstruction; no-look-ahead validation;
@@ -52,7 +52,7 @@ Current state, verified evidence, and open gaps are summarised in
   missing-data handling.
 - **Acceptance criteria:** replay over synthetic data produces
   reproducible, schema-conformant CSVs.
-- **Completion date:** TBD
+- **Completion date:** 2026-10-05
 
 ### Phase 3 — Backtesting Engine `[ ]`
 
