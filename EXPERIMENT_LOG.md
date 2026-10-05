@@ -59,4 +59,28 @@ tagged `[SYNTHETIC]` and never represent market evidence.
 - **EXP-004** `[SYNTHETIC]` — Phase 3 cost sensitivity: slippage
   0/1/2/5/10 points and commission scenarios on synthetic data.
 - **EXP-005** — Phase 5 baseline on real US30 data (BLOCKED: data).
+## EXP-003 — Phase 3 backtest accounting `[SYNTHETIC]`
+
+- **Date:** 2026-10-05
+- **Hypothesis:** Hand-computed fill fixtures (WIN, LOSS, same-bar SL-first, expiry at 11:30, MAE/MFE) match the simulator exactly.
+- **Parameters:** v1.0 baseline, zero costs.
+- **Dataset:** hand-built M1 fixtures in `tests/test_backtest.py` + synthetic replay `[SYNTHETIC]` — never market evidence.
+- **Results:** all simulator edge-case tests green; 4 synthetic signals → 4 WIN, net +6.000R, expectancy +1.500R at zero cost. R outcomes measured from the actual fill (slippage moves fill adversely, SL/TP fixed).
+- **Conclusion:** backtest accounting verified against fixtures.
+- **Decision:** accept Phase 3 simulator; synthetic profits are pipeline validation only, not evidence.
+
+---
+
+## EXP-004 — Phase 3 cost sensitivity `[SYNTHETIC]`
+
+- **Date:** 2026-10-05
+- **Hypothesis:** Higher slippage monotonically degrades R.
+- **Parameters:** slippage 0/1/2/5/10 points, v1.0 baseline otherwise.
+- **Dataset:** same synthetic set `[SYNTHETIC]`.
+- **Results:** net R = +6.000 / +4.350 / +2.699 / −2.252 / −10.503; expectancy = +1.500 / +1.087 / +0.675 / −0.563 / −2.626 — strictly monotonic. Cost-sensitivity test green.
+- **Conclusion:** cost model behaves correctly; synthetic edge is cost-fragile (expected on trend-shaped data).
+- **Decision:** every future report must state slippage + commission (spec A10).
+
+---
+
 - **EXP-006+** — Phases 6–9 research experiments (BLOCKED: data).

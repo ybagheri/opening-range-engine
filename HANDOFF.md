@@ -2,9 +2,9 @@
 
 ## Current Status
 
-- **Phase:** 2 — Historical Signal Engine
-- **Status:** COMPLETE (62 tests green; to be committed)
-- **Overall Progress:** 3 of 13 phases (0–12). Phase 3 next.
+- **Phase:** 3 — Backtesting Engine
+- **Status:** COMPLETE (75 tests green; to be committed)
+- **Overall Progress:** 4 of 13 phases (0–12). Phase 4 next.
 
 ## Last Completed Work
 
@@ -33,7 +33,7 @@ FIXED; none have been optimized.
 
 ## Tests Completed
 
-- 62 tests (incl. `test_replay.py`: determinism, prefix-consistency, missing-data, loader, schema) — all green. Synthetic replay: 4 signals / 5 days `[SYNTHETIC]`.
+- 75 tests (incl. `test_backtest.py`, `test_backtest_metrics.py`: fills, SL-first, expiry, MAE/MFE, metrics, cost sweep) — all green. Synthetic backtest: 4 WIN, net +6.000R `[SYNTHETIC]`.
 
 ## Test Results
 
@@ -81,7 +81,7 @@ Successful (verify with `git status` after pull)
 
 ## Next Exact Task
 
-- Phase 3: implement `engine/backtest/` (costs, simulator, metrics) + `engine/cli.py backtest` with hand-computed fixtures (EXP-003, EXP-004).
+- Phase 4: implement `engine/quality/audit.py` + `engine/cli.py audit` with injected-defect tests; write `results/DATA_QUALITY_REPORT.md` (synthetic audit; real-data audit blocked).
 
 ## Remaining Phase Tasks
 

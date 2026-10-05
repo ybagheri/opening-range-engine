@@ -54,7 +54,7 @@ Current state, verified evidence, and open gaps are summarised in
   reproducible, schema-conformant CSVs.
 - **Completion date:** 2026-10-05
 
-### Phase 3 — Backtesting Engine `[ ]`
+### Phase 3 — Backtesting Engine `[x]`
 
 - **Objective:** R-based backtester with realistic costs.
 - **Tasks:** stop-order entry simulation; SL/TP resolution; spread;
@@ -64,7 +64,7 @@ Current state, verified evidence, and open gaps are summarised in
 - **Tests:** fill logic edge cases (same-bar SL/TP, gaps), cost
   accounting, metric correctness on hand-computed examples.
 - **Acceptance criteria:** metrics match hand-computed fixtures.
-- **Completion date:** TBD
+- **Completion date:** 2026-10-05
 
 ### Phase 4 — Data Quality Audit `[ ]`
 
