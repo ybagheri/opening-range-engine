@@ -66,3 +66,19 @@ the reason, and the date.
 - **Reason:** Real broker data is unavailable in this environment;
   the pipeline must still be verifiable before data arrives.
 - **Date:** 2026-10-05
+
+---
+
+## DEC-008 — Research machinery built before data arrives
+
+- **Decision:** Implement splits, walk-forward windows, seeded Monte Carlo, sensitivity grid, and outcome classifier now; validate on synthetic; run on real data later.
+- **Reason:** Phases 5+ are data-blocked, but the methodology must be frozen before data arrives (avoids fitting the method to the data). Synthetic verdict correctly returns INCONCLUSIVE at n=4.
+- **Date:** 2026-10-05
+
+---
+
+## DEC-009 — TPMode extended to spec grid values
+
+- **Decision:** TPMode gains R1_25 (1.25) and R1_75 (1.75) so the spec-mandated sensitivity grid TP 1.0/1.25/1.5/1.75/2.0 R is fully testable.
+- **Reason:** Registry lists TP scenarios R1/R1.5/R2 as INITIAL and spec section 20 requires the 5-point sweep; missing enum members made the grid unrepresentable. Baseline default unchanged (R1.5).
+- **Date:** 2026-10-05

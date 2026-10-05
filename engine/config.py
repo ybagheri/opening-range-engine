@@ -13,16 +13,21 @@ class TPMode(Enum):
     """Take-profit mode. Values are the R multiple of RiskDistance."""
 
     R1 = 1.0
+    R1_25 = 1.25
     R1_5 = 1.5
+    R1_75 = 1.75
     R2 = 2.0
 
     @classmethod
     def from_string(cls, name: str) -> "TPMode":
-        key = name.strip().upper().replace("-", "_")
-        if key in {"R1", "R1_5", "R1.5"}:
-            return cls.R1_5 if key == "R1.5" else cls[key]
-        if key in {"R2"}:
-            return cls.R2
+        key = name.strip().upper().replace("-", "_").replace(".", "_")
+        aliases = {"R1_5": "R1_5", "R15": "R1_5",
+                   "R1_25": "R1_25", "R125": "R1_25",
+                   "R1_75": "R1_75", "R175": "R1_75"}
+        if key in aliases:
+            return cls[aliases[key]]
+        if key in cls.__members__:
+            return cls[key]
         raise ValueError(f"unknown TP mode: {name!r}")
 
 

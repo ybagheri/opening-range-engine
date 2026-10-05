@@ -2,8 +2,8 @@
 
 ## Current Status
 
-- **Phase:** 4 — Data Quality Audit
-- **Status:** COMPLETE (83 tests green; to be committed)
+- **Phase:** 5 — Baseline Research (BLOCKED: needs real US30 M1)
+- **Status:** RESEARCH MACHINERY BUILT (92 tests green; to be committed)
 - **Overall Progress:** 5 of 13 phases (0–12). Phase 5 BLOCKED (needs real data)
 
 ## Phase 4 Evidence `[SYNTHETIC]`
@@ -87,7 +87,7 @@ Successful (verify with `git status` after pull)
 
 ## Next Exact Task
 
-- Phase 5+ (BLOCKED): provide real US30 M1 CSV (UTC) to unblock baseline research; run audit → replay → backtest on real data.
+- NEXT: provide real US30 M1 CSV (UTC) → run `results/BASELINE_RESULTS.md` procedure → EXP-005. Machinery ready: splits / walk-forward / Monte Carlo (10k, seeded) / sensitivity grid / assess classifier.
 
 ## Remaining Phase Tasks
 

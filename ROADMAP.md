@@ -82,17 +82,17 @@ Current state, verified evidence, and open gaps are summarised in
 - Run the exact v1.0 specification without optimization.
 - Deliverable: `BASELINE_RESULTS.md` (control experiment).
 
-### Phase 6 — Parameter Sensitivity `[B]` blocked: requires Phase 5
+### Phase 6 — Parameter Sensitivity `[~]` machinery built, data-blocked
 
 - Test nearby parameters (TP, OR duration, trade window).
 - Deliverable: `PARAMETER_SENSITIVITY.md`.
 
-### Phase 7 — Walk Forward `[B]` blocked: requires Phase 5
+### Phase 7 — Walk Forward `[~]` machinery built, data-blocked
 
 - Rolling walk-forward analysis.
 - Deliverable: `WALK_FORWARD_REPORT.md`.
 
-### Phase 8 — Monte Carlo `[B]` blocked: requires Phase 5
+### Phase 8 — Monte Carlo `[~]` machinery built (10k sims, seeded), data-blocked
 
 - ≥ 10,000 simulations.
 - Deliverable: `MONTE_CARLO_REPORT.md`.
@@ -107,7 +107,7 @@ Current state, verified evidence, and open gaps are summarised in
 - Real-time demo recording of every signal.
 - Deliverable: `FORWARD_TEST_REPORT.md`.
 
-### Phase 11 — Final Strategy Assessment `[ ]`
+### Phase 11 — Final Strategy Assessment `[~]` machinery built (assess), data-blocked
 
 - Decide: Continue / Modify / Reject, on quantitative evidence.
 

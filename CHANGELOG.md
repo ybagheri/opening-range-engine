@@ -19,6 +19,12 @@ ISO format. Commit hashes are filled after each commit.
 - `tests/test_core.py`, `tests/test_strategy.py`,
   `tests/test_signals.py`, `tests/test_mql5_structure.py` — 53 tests.
 
+## 2026-10-05 — Research machinery (splits/WF/MC/sensitivity/assess, 92 tests)
+
+- `engine/research/` (splits, walk_forward, montecarlo, sensitivity, assessment) + `tests/test_research.py` (9 tests).
+- `TPMode` extended R1_25/R1_75 (spec grid); window sensitivity documented as structural placeholder.
+- `results/BASELINE_RESULTS.md` procedure scaffold (blocked, synthetic reference inside).
+
 ## 2026-10-05 — Phase 0: Project Initialization (details below unchanged)
 
 ### Added (Phase 0)
