@@ -9,9 +9,11 @@ venv/
 # Results and data (regenerable)
 data/*.csv
 data/*.zip
-results/*
+results/*.csv
+results/*.txt
+results/equity_*.png
 !results/.gitkeep
-!data/.gitkeep
+!results/DATA_QUALITY_REPORT.md
 
 # OS
 .DS_Store
