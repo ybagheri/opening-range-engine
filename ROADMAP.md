@@ -66,7 +66,7 @@ Current state, verified evidence, and open gaps are summarised in
 - **Acceptance criteria:** metrics match hand-computed fixtures.
 - **Completion date:** 2026-10-05
 
-### Phase 4 — Data Quality Audit `[ ]`
+### Phase 4 — Data Quality Audit `[x]`
 
 - **Objective:** verify input data integrity.
 - **Tasks:** missing bars; duplicate bars; timezone; DST; broker symbol
@@ -75,7 +75,7 @@ Current state, verified evidence, and open gaps are summarised in
 - **Tests:** audit detects injected defects.
 - **Acceptance criteria:** audit runs and reports; real-data audit is
   blocked until broker data is available (documented).
-- **Completion date:** TBD
+- **Completion date:** 2026-10-05
 
 ### Phase 5 — Baseline Research `[B]` blocked: requires real US30 M1/M5/M15 data
 

@@ -24,8 +24,10 @@ def _base_parser():
     b.add_argument("--symbol", default="US30")
     b.add_argument("--slippage-points", type=int, default=0)
     b.add_argument("--commission", type=float, default=0.0)
-    a = sub.add_parser("audit", help="(Phase 4) data quality audit")
+    a = sub.add_parser("audit", help="audit M1 data quality")
     a.add_argument("--input", required=True)
+    a.add_argument("--report", required=True)
+    a.add_argument("--symbol", default="US30")
     return p
 
 
@@ -88,12 +90,30 @@ def cmd_backtest(args) -> int:
     return 0
 
 
+def cmd_audit(args) -> int:
+    from .data.synthetic import generate_m1
+    from .quality.audit import audit_bars, render_report
+    cfg = StrategyConfig(symbol=args.symbol).validate()
+    if args.input == "synthetic":
+        bars = generate_m1(seed=cfg.seed)
+    else:
+        bars = load_m1_csv(args.input)
+    report = audit_bars(bars, symbol=cfg.symbol)
+    text = render_report(report)
+    with open(args.report, "w", encoding="utf-8") as fh:
+        fh.write(text)
+    print(text)
+    return 0 if report.passed() else 1
+
+
 def main(argv=None) -> int:
     args = _base_parser().parse_args(argv)
     if args.cmd == "replay":
         return cmd_replay(args)
     if args.cmd == "backtest":
         return cmd_backtest(args)
+    if args.cmd == "audit":
+        return cmd_audit(args)
     print(f"{args.cmd}: not implemented until its phase", file=sys.stderr)
     return 2
 

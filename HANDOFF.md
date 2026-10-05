@@ -2,9 +2,15 @@
 
 ## Current Status
 
-- **Phase:** 3 — Backtesting Engine
-- **Status:** COMPLETE (75 tests green; to be committed)
-- **Overall Progress:** 4 of 13 phases (0–12). Phase 4 next.
+- **Phase:** 4 — Data Quality Audit
+- **Status:** COMPLETE (83 tests green; to be committed)
+- **Overall Progress:** 5 of 13 phases (0–12). Phase 5 BLOCKED (needs real data)
+
+## Phase 4 Evidence `[SYNTHETIC]`
+
+- Synthetic audit: 4800 bars / 5 NY days, 0 errors 0 warnings → PASS.
+- All 8 injected-defect checks detected (gaps/duplicates/OHLC/order/OR/DST).
+- Real broker-data audit remains BLOCKED; procedure documented in `results/DATA_QUALITY_REPORT.md`.
 
 ## Last Completed Work
 
@@ -33,7 +39,7 @@ FIXED; none have been optimized.
 
 ## Tests Completed
 
-- 75 tests (incl. `test_backtest.py`, `test_backtest_metrics.py`: fills, SL-first, expiry, MAE/MFE, metrics, cost sweep) — all green. Synthetic backtest: 4 WIN, net +6.000R `[SYNTHETIC]`.
+- 83 tests (incl. `test_audit.py`: 8 injected-defect classes) — all green.
 
 ## Test Results
 
@@ -81,7 +87,7 @@ Successful (verify with `git status` after pull)
 
 ## Next Exact Task
 
-- Phase 4: implement `engine/quality/audit.py` + `engine/cli.py audit` with injected-defect tests; write `results/DATA_QUALITY_REPORT.md` (synthetic audit; real-data audit blocked).
+- Phase 5+ (BLOCKED): provide real US30 M1 CSV (UTC) to unblock baseline research; run audit → replay → backtest on real data.
 
 ## Remaining Phase Tasks
 
