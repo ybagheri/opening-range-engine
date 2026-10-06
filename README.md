@@ -39,10 +39,21 @@ Analysis → Forward Demo Testing → Robustness Assessment → Optional EA
 
 ```bash
 python3 -m pip install -r requirements.txt   # no third-party deps required today
-python3 -m pytest tests/ -q                   # full test suite
+python3 -m pytest tests/ -q                   # full test suite (103 tests)
+python3 -m engine.cli audit --input data/US30_M1_UTC.csv --report results/REPORT.md
 python3 -m engine.cli replay --help           # historical signal replay
 python3 -m engine.cli backtest --help         # R-based backtest
 ```
+
+## Current status (2026-10-06)
+
+Phase 5 baseline (EXP-005) executed on real US30 M1 data
+(46 NY days): data-quality audit PASS, but the frozen v1.0
+parameters produce **0 trades** — the OR-size filter
+([0.25, 1.00] x ATR_M5(14)) rejects 100% of valid days on
+real US30 volatility. Full evidence: `results/BASELINE_RESULTS.md`.
+No profitability claim is made or implied; the next step is the
+pre-registered EXP-006 recalibration study (PLANNED).
 
 ## Documentation map
 

@@ -2,48 +2,83 @@
 
 ## Current Status
 
-- **Phase:** 5 — Baseline Research (BLOCKED: needs real US30 M1)
-- **Status:** RESEARCH MACHINERY BUILT (92 tests green; to be committed)
-- **Overall Progress:** 5 of 13 phases (0–12). Phase 5 BLOCKED (needs real data)
+- **Phase:** 6 - Parameter Sensitivity (GATED: see EXP-005
+  finding below; next action is the EXP-006 recalibration
+  study, PLANNED and requiring approval)
+- **Status:** EXP-005 EXECUTED on real US30 data; all
+  documents updated; 103 tests green; working tree ready
+  to commit.
+- **Overall Progress:** 6 of 13 phases (0-5 complete).
 
-## Phase 4 Evidence `[SYNTHETIC]`
+## Phase 5 Evidence `[REAL DATA]` (EXP-005, 2026-10-06)
 
-- Synthetic audit: 4800 bars / 5 NY days, 0 errors 0 warnings → PASS.
-- All 8 injected-defect checks detected (gaps/duplicates/OHLC/order/OR/DST).
-- Real broker-data audit remains BLOCKED; procedure documented in `results/DATA_QUALITY_REPORT.md`.
+- Dataset: `data/US30_M1_UTC.csv` - 50,000 real broker
+  M1 bars (UTC), 46 NY days, 2026-08-13 .. 2026-10-05
+  (git-ignored; not committed).
+- Data-quality audit: **PASS (0 errors)**. Disclosed:
+  8 weekend breaks, 27 scheduled daily breaks
+  (23:58->01:01 UTC), 68 small gaps all OUTSIDE the
+  09:30-11:30 NY signal windows, 10 OR-incomplete days.
+- Replay: 46 days, **0 signals** (35x "Opening Range
+  too large", 10x "Opening Range incomplete", 1x
+  "Breakout extension too large").
+- Backtest: 0 trades, net 0.000R.
+- Sensitivity grid: all 9 cells (TP 1.0-2.0 R; OR
+  10/15/20/30 min) n=0. Walk-forward: 22 windows
+  (20d/5d) defined. Monte Carlo: n=10,000 both modes
+  (empty R series). Assessment: INCONCLUSIVE (n=0 < 30).
+- **Key finding:** the frozen v1.0 OR-size band
+  [0.25, 1.00] x ATR_M5(14) rejects 100% of valid days
+  on real US30 - a 15-minute opening range is 1.1x-6.8x
+  the M5-ATR(14) (median ~2.5). The strategy as frozen
+  never arms; its profitability is untestable until the
+  OR gate is recalibrated through a documented experiment.
 
 ## Last Completed Work
 
-- Phase 1 (resumed after killed session): `engine/session.py`, `engine/bias.py`, `engine/signals.py`, `MQL5/Indicators/NY_OR_Pullback_v1.mq5`, and 4 test files (53 tests green). Orphaned pre-kill modules (`config`, `ny_time`, `bars`, `indicators`) audited and kept.
-- Phase 0: repository inspection, environment verification, project
-  skeleton, and full documentation structure created.
-- Environment verified: Python 3.10.12, pytest available, git
-  configured (`Winuser <ybagheir83@gmail.com>`), GitHub SSH push
-  access confirmed (`git@github.com:ybagheri/opening-range-engine.git`).
+- Phase 5 (EXP-005): real-data baseline executed
+  end-to-end (audit -> replay -> backtest -> splits ->
+  sensitivity -> walk-forward -> Monte Carlo -> assess).
+- `engine/data/loader.py`: MT5 export-format support
+  (case-insensitive headers, TickVolume/RealVolume ->
+  volume, dot-dates with seconds).
+- `engine/quality/audit.py`: impact-based gap severity
+  model (DEC-010) + trade-window completeness check +
+  source-aware report rendering ("EXECUTED" for real).
+- `results/BASELINE_RESULTS.md`: full EXP-005 record.
+- `results/DATA_QUALITY_REPORT_REAL.md`: real audit.
+- New tests: `tests/test_loader.py` (6), expanded
+  `tests/test_audit.py` (+6). 103 tests green.
 
 ## Current Implementation
 
-- Python core (config, ny_time, bars, indicators, session, bias, signals) + MQL5 indicator v1.0 structural draft.
-- Files: `README.md`, `README_FA.md` (Persian),
-  `docs/STRATEGY_SPEC.md`, `docs/PARAMETER_REGISTRY.md`,
-  `docs/ARCHITECTURE.md`, plus the tracking documents in the repo root.
+- Python core (config, ny_time, bars, indicators,
+  session, bias, signals, replay, export) + backtest
+  (costs, metrics, records, report, simulator) + data
+  (loader, schema, synthetic) + quality (audit) +
+  research (splits, walk_forward, montecarlo,
+  sensitivity, assessment) + CLI.
+- MQL5 indicator v1.0 structural draft (compilation
+  requires MetaEditor; not available here).
+- Docs: README.md, README_FA.md (Persian),
+  docs/STRATEGY_SPEC.md, docs/PARAMETER_REGISTRY.md,
+  docs/ARCHITECTURE.md, plus root tracking docs.
 
 ## Current Strategy Version
 
-v1.0 (specification frozen; see `docs/STRATEGY_SPEC.md`)
-
-## Current Parameters
-
-See `docs/PARAMETER_REGISTRY.md`. All v1.0 values are INITIAL or
-FIXED; none have been optimized.
+v1.0 (specification frozen; see docs/STRATEGY_SPEC.md).
+**No parameter has ever been optimized or changed on
+the basis of results (DEC-011).**
 
 ## Tests Completed
 
-- 83 tests (incl. `test_audit.py`: 8 injected-defect classes) — all green.
+- 103 tests (core, strategy, signals, replay, backtest,
+  backtest metrics, audit incl. injected defects, loader,
+  research, MQL5 structure) - all green.
 
 ## Test Results
 
-- N/A
+- `python3 -m pytest -q` -> 103 passed.
 
 ## Known Issues
 
@@ -51,78 +86,87 @@ FIXED; none have been optimized.
 
 ## Known Limitations
 
-- No MT5 terminal / MetaTrader 5 Python package is available in this
-  environment (Linux). Real broker data is therefore not yet loaded;
-  Phases that require live MT5 data (real-data baseline, forward demo)
-  are blocked until data is provided. A deterministic synthetic data
-  generator is planned so the pipeline can be validated end-to-end.
+- No MT5 terminal / MetaTrader 5 Python package in this
+  environment (Linux): MQL5 compilation and forward demo
+  (Phase 10) are blocked until MT5 is available.
+- Real broker data is git-ignored by design; results are
+  reproducible only where the data file is present.
 
 ## Research Findings
 
-- None yet.
+- EXP-005: OR_Size/ATR_M5(14) on real US30 (36 valid
+  days): min 0.97, median ~2.5, max 6.84; 1 of 36 days
+  inside the v1.0 band. v1.0's OR filter is
+  mis-calibrated for US30 opening volatility.
 
 ## Decisions Made
 
-- MQL5 indicator is the Phase 1 deliverable; no EA in v1.0.
-- Python `engine/` is the canonical research layer; MQL5 mirrors it.
-- Input data timestamps are assumed UTC; NY conversion via `zoneinfo`
-  with explicit US DST rules.
-- Same-bar SL/TP ambiguity resolves conservatively (SL first).
-
-## Files Changed
-
-- `.gitignore`, `README.md`, `README_FA.md`, `docs/STRATEGY_SPEC.md`,
-  `docs/PARAMETER_REGISTRY.md`, `docs/ARCHITECTURE.md`,
-  `HANDOFF.md`, `ROADMAP.md`, `CHANGELOG.md`, `EXPERIMENT_LOG.md`,
-  `DECISION_LOG.md`, `ASSUMPTIONS.md`, `data/.gitkeep`,
-  `results/.gitkeep`
-
-## Last Git Commit
-
-See `git log --oneline -1` (phase-00: project initialization and documentation skeleton)
-
-## Last Git Push
-
-Successful (verify with `git status` after pull)
+- (Phase 0-4) MQL5 indicator is the Phase 1 deliverable;
+  no EA in v1.0. Python engine is the canonical research
+  layer. UTC input timestamps; NY via zoneinfo + explicit
+  DST rules. Same-bar SL/TP resolves SL first. Pending
+  orders expire at 11:30 NY. Spread recorded, never
+  filtered. Synthetic data is pipeline validation only.
+- DEC-010: gap severity is impact-based, never silent.
+- DEC-011: EXP-005 baseline recorded as-is; v1.0
+  parameters NOT changed despite the zero-trade outcome.
 
 ## Next Exact Task
 
-- NEXT: provide real US30 M1 CSV (UTC) → run `results/BASELINE_RESULTS.md` procedure → EXP-005. Machinery ready: splits / walk-forward / Monte Carlo (10k, seeded) / sensitivity grid / assess classifier.
+- NEXT: EXP-006 (PLANNED, requires explicit approval
+  before any parameter change): OR-filter recalibration
+  study. Measure OR/ATR_M5 on the train block
+  (2026-08-13..2026-09-13), pre-register a band
+  hypothesis (e.g. wider MaxOR_ATR), then evaluate
+  strictly on the held-out OOS block (2026-09-24..
+  2026-10-05) with walk-forward + Monte Carlo. Record
+  the experiment in EXPERIMENT_LOG.md before running it.
 
 ## Remaining Phase Tasks
 
-- [ ] Phase 1 — MT5 Indicator v1.0
-- [ ] Phase 2 — Historical Signal Engine
-- [ ] Phase 3 — Backtesting Engine
-- [ ] Phase 4 — Data Quality Audit
-- [ ] Phase 5 — Baseline Research (blocked: needs real MT5 data)
-- [ ] Phase 6 — Parameter Sensitivity (blocked: needs Phase 5)
-- [ ] Phase 7 — Walk Forward (blocked: needs Phase 5)
-- [ ] Phase 8 — Monte Carlo (blocked: needs Phase 5)
-- [ ] Phase 9 — Multi-Symbol (blocked: needs Phase 5)
-- [ ] Phase 10 — Forward Demo (blocked: needs demo account)
-- [ ] Phase 11 — Final Strategy Assessment
-- [ ] Phase 12 — Optional EA (only if justified)
+- [x] Phase 0 - Project Initialization
+- [x] Phase 1 - MT5 Indicator v1.0
+- [x] Phase 2 - Historical Signal Engine
+- [x] Phase 3 - Backtesting Engine
+- [x] Phase 4 - Data Quality Audit
+- [x] Phase 5 - Baseline Research (EXP-005: 0 trades;
+      v1.0 OR filter mis-calibrated for real US30)
+- [ ] Phase 6 - Parameter Sensitivity (gated on EXP-006)
+- [ ] Phase 7 - Walk Forward (gated on EXP-006)
+- [ ] Phase 8 - Monte Carlo (gated on EXP-006)
+- [ ] Phase 9 - Multi-Symbol (gated on EXP-006 + data)
+- [ ] Phase 10 - Forward Demo (blocked: demo account + MT5)
+- [ ] Phase 11 - Final Strategy Assessment
+- [ ] Phase 12 - Optional EA (only if justified)
 
 ## Do NOT Repeat
 
-- Do not optimize v1.0 parameters to improve historical results.
+- Do not optimize v1.0 parameters to improve historical
+  results (DEC-011).
 - Do not add an EA before validation completes.
 - Do not silently fill missing bars.
+- Do not reclassify data defects to make the audit pass;
+  the severity model (DEC-010) is impact-based and every
+  defect must stay disclosed.
 
 ## Important Warnings
 
-- The strategy is NOT assumed profitable. Never claim an edge without
-  OOS, walk-forward, Monte Carlo, cost sensitivity, and forward demo
-  evidence.
-- Missing historical data must produce NO TRADE, never a synthetic fill.
+- The strategy is NOT assumed profitable. EXP-005 produced
+  zero trades; no edge is claimed. Never claim an edge
+  without OOS, walk-forward, Monte Carlo, cost sensitivity,
+  and forward demo evidence.
+- Missing historical data must produce NO TRADE, never a
+  synthetic fill.
 
 ## Instructions For Next Agent
 
 1. Read this file first.
 2. Read ROADMAP.md.
 3. Read CHANGELOG.md.
-4. Inspect git status and recent commits.
-5. Continue from the current phase.
-6. Do not redo completed work.
-7. Do not change strategy parameters without documenting the experiment.
+4. Read results/BASELINE_RESULTS.md (EXP-005 evidence).
+5. Inspect git status and recent commits.
+6. Continue from the current phase (EXP-006 design, or
+   as directed).
+7. Do not redo completed work.
+8. Do not change strategy parameters without documenting
+   the experiment first.

@@ -3,6 +3,52 @@
 All meaningful changes to the project are recorded here. Dates use
 ISO format. Commit hashes are filled after each commit.
 
+## 2026-10-06 — Phase 5: baseline research on real US30 data (EXP-005)
+
+### Added
+
+- `engine/data/loader.py`: MT5 export-format support —
+  case-insensitive headers, `TickVolume`/`RealVolume`
+  mapped to volume, `%Y.%m.%d %H:%M[:%S]` timestamps.
+- `tests/test_loader.py` — 6 broker-format loader tests.
+- `engine/quality/audit.py`: impact-based gap severity
+  model (ERROR inside signal windows; WARNING outside;
+  INFO for recurring scheduled daily breaks + weekend
+  breaks) and a trade-window completeness check per NY
+  day; `render_report(report, source=...)` provenance
+  note ("EXECUTED" for real data).
+- `tests/test_audit.py`: 6 new/updated tests
+  (signal-window gap ERROR, overnight gap WARNING,
+  scheduled-break INFO, trade-window coverage,
+  partial-day WARNING, real-source rendering).
+- `results/BASELINE_RESULTS.md` — full EXP-005 record.
+- `results/DATA_QUALITY_REPORT_REAL.md` — real-data
+  audit (PASS, 0 errors; all defects disclosed).
+
+### Changed
+
+- EXP-005 executed on `data/US30_M1_UTC.csv`
+  (50,000 real M1 bars, 46 NY days): audit PASS;
+  replay 46 days -> 0 signals (35x OR too large,
+  10x OR incomplete, 1x breakout extension too
+  large); backtest 0 trades; sensitivity grid all
+  cells n=0; walk-forward 22 windows; Monte Carlo
+  n=10,000 (empty R series); assessment INCONCLUSIVE.
+- Finding: frozen v1.0 OR band [0.25, 1.00] x
+  ATR_M5(14) rejects 100% of valid days (observed
+  OR/ATR_M5 median ~2.5). No parameter changed
+  (DEC-011); EXP-006 recalibration study PLANNED.
+
+### Tests
+
+- 103 tests green (was 92).
+
+### Decisions
+
+- DEC-010: gap severity is impact-based, never silent.
+- DEC-011: baseline recorded as-is; v1.0 parameters
+  NOT changed despite the zero-trade outcome.
+
 ## 2026-10-05 — Phase 1: MT5 Indicator v1.0 + Python Core
 
 ### Added

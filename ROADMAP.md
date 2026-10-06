@@ -77,27 +77,34 @@ Current state, verified evidence, and open gaps are summarised in
   blocked until broker data is available (documented).
 - **Completion date:** 2026-10-05
 
-### Phase 5 — Baseline Research `[B]` blocked: requires real US30 M1/M5/M15 data
+### Phase 5 — Baseline Research `[x]` (EXECUTED 2026-10-06, EXP-005)
 
 - Run the exact v1.0 specification without optimization.
-- Deliverable: `BASELINE_RESULTS.md` (control experiment).
+- Deliverable: `results/BASELINE_RESULTS.md` (control experiment).
+- **Result:** 0 trades in 46 NY days. Audit PASS (0 errors).
+  The frozen OR-size band [0.25, 1.00] x ATR_M5(14) rejects
+  100% of valid days on real US30 (observed OR/ATR_M5 median
+  ~2.5, range 0.97-6.84). Assessment: INCONCLUSIVE (n=0).
+  No parameter changed; EXP-006 recalibration study PLANNED.
 
-### Phase 6 — Parameter Sensitivity `[~]` machinery built, data-blocked
+### Phase 6 — Parameter Sensitivity `[~]` machinery built; EXP-005 grid run (all cells n=0)
 
 - Test nearby parameters (TP, OR duration, trade window).
 - Deliverable: `PARAMETER_SENSITIVITY.md`.
+- Note: a meaningful sensitivity study requires the OR gate to
+  admit trades (depends on EXP-006).
 
-### Phase 7 — Walk Forward `[~]` machinery built, data-blocked
+### Phase 7 — Walk Forward `[~]` machinery built; windows defined (22x 20d/5d)
 
 - Rolling walk-forward analysis.
 - Deliverable: `WALK_FORWARD_REPORT.md`.
 
-### Phase 8 — Monte Carlo `[~]` machinery built (10k sims, seeded), data-blocked
+### Phase 8 — Monte Carlo `[~]` machinery built (10k sims, seeded); run on empty R series
 
 - ≥ 10,000 simulations.
 - Deliverable: `MONTE_CARLO_REPORT.md`.
 
-### Phase 9 — Multi-Symbol `[B]` blocked: requires Phase 5
+### Phase 9 — Multi-Symbol `[B]` blocked: requires a trading baseline
 
 - US30, NAS100, XAUUSD, GER40, EURUSD with identical parameters.
 - Deliverable: `MULTI_SYMBOL_REPORT.md`.
@@ -107,9 +114,11 @@ Current state, verified evidence, and open gaps are summarised in
 - Real-time demo recording of every signal.
 - Deliverable: `FORWARD_TEST_REPORT.md`.
 
-### Phase 11 — Final Strategy Assessment `[~]` machinery built (assess), data-blocked
+### Phase 11 — Final Strategy Assessment `[~]` machinery built; EXP-005 verdict INCONCLUSIVE
 
 - Decide: Continue / Modify / Reject, on quantitative evidence.
+- EXP-005 flags a Modify candidate (OR-filter calibration),
+  gated on the EXP-006 experiment.
 
 ### Phase 12 — Optional EA `[ ]`
 
@@ -118,11 +127,18 @@ Current state, verified evidence, and open gaps are summarised in
 
 ## Blockers
 
-- **Real market data:** no MetaTrader 5 terminal or broker feed in
-  this environment. Phases 5–10 cannot produce real research results
-  until M1/M5/M15 data for the configured symbol is provided. The
-  engine is being built and validated end-to-end on deterministic
-  synthetic data so that data arrival unblocks research immediately.
-- **MT5 compilation:** MQL5 cannot be compiled in this Linux
-  environment; compilation must be verified in MetaEditor. Structural
-  checks are automated; runtime verification requires MT5.
+- **v1.0 parameter calibration:** EXP-005 (real US30, 46 days)
+  shows the frozen OR-size band [0.25, 1.00] x ATR_M5(14)
+  rejects 100% of valid days, so the strategy never trades and
+  Phases 6-9 cannot produce meaningful statistics. Unblocked only
+  by a pre-registered recalibration experiment (EXP-006, PLANNED,
+  requires approval). No parameter may be changed outside that
+  experiment (DEC-011).
+- **MT5 terminal / demo account:** no MetaTrader 5 terminal in
+  this environment (Linux). Forward demo (Phase 10) and MQL5
+  compilation verification require MT5; MQL5 structural checks
+  are automated, runtime verification requires MetaEditor.
+- **Real market data (RESOLVED 2026-10-06):** real US30 M1 data
+  arrived (`data/US30_M1_UTC.csv`, git-ignored) and Phase 5
+  executed on it. Multi-symbol (Phase 9) still needs the other
+  symbols' data.

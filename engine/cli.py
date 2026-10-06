@@ -99,7 +99,9 @@ def cmd_audit(args) -> int:
     else:
         bars = load_m1_csv(args.input)
     report = audit_bars(bars, symbol=cfg.symbol)
-    text = render_report(report)
+    text = render_report(report,
+                         source=("synthetic" if args.input == "synthetic"
+                                 else "real"))
     with open(args.report, "w", encoding="utf-8") as fh:
         fh.write(text)
     print(text)

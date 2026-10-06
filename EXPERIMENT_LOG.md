@@ -54,11 +54,7 @@ tagged `[SYNTHETIC]` and never represent market evidence.
 - **Results:** `test_prefix_consistency` green; earlier-day (state, reason) pairs identical after truncation. Missing OR-bar injection → NO_TRADE `Opening Range incomplete (missing bars)` (never filled).
 - **Conclusion:** no-look-ahead holds on the replay path.
 - **Decision:** proceed to Phase 3 backtester.
-- **EXP-003** `[SYNTHETIC]` — Phase 3 backtest accounting: hand-
-  computed fixture with known fills, costs, and R results.
-- **EXP-004** `[SYNTHETIC]` — Phase 3 cost sensitivity: slippage
-  0/1/2/5/10 points and commission scenarios on synthetic data.
-- **EXP-005** — Phase 5 baseline on real US30 data (BLOCKED: data).
+
 ## EXP-003 — Phase 3 backtest accounting `[SYNTHETIC]`
 
 - **Date:** 2026-10-05
@@ -83,4 +79,53 @@ tagged `[SYNTHETIC]` and never represent market evidence.
 
 ---
 
-- **EXP-006+** — Phases 6–9 research experiments (BLOCKED: data).
+## EXP-005 — Phase 5 baseline on real US30 M1 `[REAL DATA]`
+
+- **Date:** 2026-10-06
+- **Hypothesis:** The frozen v1.0 specification, run without
+  optimization on real US30 data, produces a measurable
+  baseline (the control experiment for all later phases).
+- **Parameters:** v1.0 baseline, all INITIAL/FIXED values,
+  zero changes. Costs: slippage 0, commission 0.
+- **Dataset:** `data/US30_M1_UTC.csv` — 50,000 real broker
+  M1 bars (UTC), 46 NY days, 2026-08-13 .. 2026-10-05.
+- **Training period:** 27 days (2026-08-13 .. 2026-09-13).
+- **Validation period:** 9 days (2026-09-14 .. 2026-09-23).
+- **OOS period:** 10 days (2026-09-24 .. 2026-10-05).
+- **Results:**
+  - Data-quality audit: PASS (0 errors). Disclosed: 8 weekend
+    breaks, 27 scheduled daily breaks (23:58->01:01 UTC),
+    68 small gaps all outside the 09:30-11:30 NY signal
+    windows, 10 OR-incomplete days (Sundays/partial days).
+  - Replay: 46 days, **0 signals**. NO_TRADE: 10x OR
+    incomplete, 35x "Opening Range too large", 1x "Breakout
+    extension too large".
+  - OR_Size/ATR_M5(14) on valid days: min 0.97, median
+    ~2.5, max 6.84; only 1 of 36 days inside the v1.0 band
+    [0.25, 1.00].
+  - Backtest: 0 trades, net 0.000R.
+  - Sensitivity grid: all 9 cells (TP 1.0-2.0 R; OR
+    10/15/20/30 min) n=0 -> POSSIBLE OVERFITTING (degenerate).
+  - Walk-forward: 22 windows (20d train / 5d test) defined.
+  - Monte Carlo: n=10,000 both modes; R series empty -> all
+    statistics 0 by construction.
+  - Assessment: INCONCLUSIVE (n=0 < 30).
+- **Conclusion:** The pipeline executes end-to-end on real
+  data with zero errors, but the frozen v1.0 OR-size band
+  [0.25, 1.00] x ATR_M5(14) rejects 100% of valid days on
+  real US30 (a 15-minute opening range is 1.1x-6.8x the
+  M5-ATR(14)). The strategy as frozen never trades; its
+  profitability is untestable until the OR gate is
+  recalibrated through a documented experiment.
+- **Decision:** Baseline recorded as-is; **no parameter
+  changed** (control experiment integrity). EXP-006
+  (OR-filter recalibration study with pre-registered band
+  and strict OOS evaluation) is PLANNED and requires
+  explicit approval before any parameter changes.
+
+---
+
+- **EXP-006** (PLANNED) — OR-filter recalibration study:
+  measure OR/ATR_M5 on the train block, pre-register a
+  band hypothesis, evaluate only on the OOS block with
+  walk-forward + Monte Carlo. Not yet approved.

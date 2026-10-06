@@ -82,3 +82,15 @@ the reason, and the date.
 - **Decision:** TPMode gains R1_25 (1.25) and R1_75 (1.75) so the spec-mandated sensitivity grid TP 1.0/1.25/1.5/1.75/2.0 R is fully testable.
 - **Reason:** Registry lists TP scenarios R1/R1.5/R2 as INITIAL and spec section 20 requires the 5-point sweep; missing enum members made the grid unrepresentable. Baseline default unchanged (R1.5).
 - **Date:** 2026-10-05
+
+## DEC-010 — Gap severity is impact-based, never silent
+
+- **Decision:** The data-quality audit classifies gaps by signal impact: ERROR if a gap intersects the OR (09:30-09:45 NY) or trade (09:45-11:30 NY) window; WARNING for gaps outside the signal windows (disclosed); INFO for recurring scheduled broker breaks (same clock-time pattern on >= 3 distinct NY days, >= 15 bars) and multi-day weekend breaks.
+- **Reason:** Real broker data contains scheduled daily breaks (23:58->01:01 UTC) and benign overnight feed gaps that must not be silently forgiven (they are disclosed), but must not block research when they cannot affect any signal. Gaps inside signal windows remain hard errors because they silently corrupt M5 breakout/pullback signals.
+- **Date:** 2026-10-06
+
+## DEC-011 — EXP-005 baseline recorded as-is; v1.0 parameters NOT changed
+
+- **Decision:** The Phase 5 baseline on real US30 data (0 trades in 46 days) is recorded verbatim. Despite the zero-trade outcome, no parameter (notably MaxOR_ATR) was altered.
+- **Reason:** The baseline is the control experiment; changing parameters to "fix" the result would destroy its evidentiary value. The observed OR/ATR_M5 distribution (median ~2.5 vs the frozen band [0.25, 1.00]) is a finding, and any recalibration must go through a pre-registered, OOS-validated experiment (EXP-006, PLANNED).
+- **Date:** 2026-10-06
