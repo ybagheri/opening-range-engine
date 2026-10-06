@@ -109,3 +109,18 @@ the reason, and the date.
   (+8.0R in-sample vs -0.5R OOS, both tiny samples) confirms
   that only held-out evidence may move parameters.
 - **Date:** 2026-10-06
+
+## DEC-013 — EXP-007 pooled result recorded as evidence, zero tuning
+
+- **Decision:** The multi-symbol outcome (pooled n=54, net
+  -6.000R, expectancy -0.111R, PF 0.818 — WEAK, borderline
+  FAILED) is recorded as evidence for Phase 11. No parameter
+  was tuned on these 54 trades, none adopted; the registry,
+  `StrategyConfig` defaults, and MQL5 inputs are unchanged.
+- **Reason:** Tuning on the evaluation sample would destroy its
+  evidentiary value (DEC-011 precedent). Also noted in the
+  record: the `assess` fall-through word for these numbers reads
+  PROMISING, which is explicitly rejected in the report — with
+  negative expectancy and PF<1 the honest reading is WEAK
+  leaning FAILED.
+- **Date:** 2026-10-06

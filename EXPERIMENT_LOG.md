@@ -182,3 +182,60 @@ tagged `[SYNTHETIC]` and never represent market evidence.
   7.00] band remains a research candidate with an
   INCONCLUSIVE record — not adopted. Full record:
   `results/EXP006_OR_RECALIBRATION.md`.
+
+---
+
+## EXP-007 — Multi-symbol evaluation `[REAL DATA]` (PRE-REGISTERED 2026-10-06, before any multi-symbol run)
+
+- **Date pre-registered:** 2026-10-06 (config fixed BEFORE
+  replaying any new symbol; v1.0 registry untouched).
+- **Hypothesis:** The EXP-006 candidate (OR band [0.25,
+  7.00], otherwise v1.0) applied with IDENTICAL strategy
+  parameters to new symbols either admits a pooled sample
+  large enough (n>=30) to judge, or fails consistently —
+  both are information. No per-symbol tuning of any kind.
+- **Parameters (identical for every symbol):** OR 15 min,
+  `min_or_atr` 0.25, `max_or_atr` 7.00, TP R1.5, costs
+  slippage 0 / commission 0.0. Per-symbol market input
+  ONLY (FIXED convention, like MT5 SYMBOL_POINT, not a
+  strategy parameter): point = observed tick size —
+  XAUUSD 0.01, EURUSD 0.00001, US30/US500/NAS100 0.1
+  (entry/stop buffers ±1 point; negligible at ATR scale).
+- **Datasets (all 1-minute bars despite `M5` filenames —
+  verified 99.9% 1-min spacing before use):**
+  `data/XAUUSD_M5_UTC.csv`, `data/EURUSD_M5_UTC.csv`,
+  `data/US30_M5_UTC.csv`, `data/US500_M5_UTC.csv`,
+  `data/NAS100_M5_UTC.csv` (50,000 bars each).
+- **OOS status:** every symbol except US30 is fully
+  out-of-sample for the band (fit on US30-train OR/ATR
+  distribution only, from P&L-blind measurement). US30
+  replays its own extended file (ends 2026-10-06) for
+  comparability; its EXP-006 OOS verdict stands separate.
+- **Procedure per symbol:** audit -> replay (candidate
+  config) -> backtest -> metrics; then pooled assessment
+  (`assess`), pooled Monte Carlo (n=10,000, seed 42).
+  No walk-forward inside symbols (blocks too short for
+  20d/5d windows); no sensitivity re-run (EXP-006
+  characterized the candidate).
+- **Results:**
+  - Audits: all 5 files PASS (0 errors); weekend +
+    scheduled daily breaks INFO; overnight gaps WARNING
+    outside signal windows.
+  - Per-symbol (candidate, TP R1.5, costs 0/0): XAUUSD
+    n=14 net -1.500R; EURUSD n=4 net -1.500R; US30 n=12
+    net +5.500R; US500 n=11 net -6.000R; NAS100 n=13
+    (3 expired 0R) net -2.500R.
+  - Pooled: n=54, net -6.000R, expectancy -0.111R, win
+    rate 0.333, PF 0.818, max DD 14.000R. Monte Carlo
+    (10k, seed 42): bootstrap P(profit) 0.236.
+- **Conclusion:** No edge detected — WEAK, borderline
+  FAILED (FAILED cutoffs exp<=-0.2 / PF<0.8; observed
+  -0.111 / 0.818). The `assess` fall-through word would
+  read PROMISING; explicitly NOT claimed with negative
+  expectancy and PF<1. Only US30 positive (n=12, itself
+  <30); US-index correlation means pooled n=54 is an
+  upper bound on evidence.
+- **Decision:** No parameter adopted or tuned on these 54
+  trades — registry stays FROZEN. Any new hypothesis
+  needs NEW held-out data. Full record:
+  `results/MULTI_SYMBOL_REPORT.md`.

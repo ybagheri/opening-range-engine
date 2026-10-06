@@ -111,17 +111,23 @@ Current state, verified evidence, and open gaps are summarised in
 - ≥ 10,000 simulations.
 - Deliverable: `MONTE_CARLO_REPORT.md`.
 
-### Phase 9 — Multi-Symbol `[B]` blocked: requires a trading baseline
+### Phase 9 — Multi-Symbol `[x]` EXECUTED 2026-10-06 (EXP-007)
 
-- US30, NAS100, XAUUSD, GER40, EURUSD with identical parameters.
-- Deliverable: `MULTI_SYMBOL_REPORT.md`.
+- XAUUSD, EURUSD, US30, US500, NAS100 (50k 1-min bars each;
+  `M5` filenames mislabeled — verified before use) with the
+  identical EXP-006 candidate; per-symbol point = tick size.
+- Result: XAUUSD -1.5R (n=14), EURUSD -1.5R (n=4), US30
+  +5.5R (n=12), US500 -6.0R (n=11), NAS100 -2.5R (n=13).
+  Pooled n=54, net -6.000R, expectancy -0.111R, PF 0.818,
+  bootstrap P(profit) 0.236 → WEAK, borderline FAILED.
+- Deliverable: `results/MULTI_SYMBOL_REPORT.md`.
 
 ### Phase 10 — Forward Demo `[B]` blocked: requires demo account + MT5
 
 - Real-time demo recording of every signal.
 - Deliverable: `FORWARD_TEST_REPORT.md`.
 
-### Phase 11 — Final Strategy Assessment `[~]` EXP-005 INCONCLUSIVE (n=0); EXP-006 INCONCLUSIVE (OOS n=3)
+### Phase 11 — Final Strategy Assessment `[~]` NEXT: Continue / Modify / Reject on EXP-005 (n=0) + EXP-006 (OOS n=3) + EXP-007 (pooled n=54, WEAK/borderline FAILED)
 
 - Decide: Continue / Modify / Reject, on quantitative evidence.
 - EXP-005 flags a Modify candidate (OR-filter calibration),
@@ -138,14 +144,16 @@ Current state, verified evidence, and open gaps are summarised in
   2026-10-06):** EXP-006 confirmed the EXP-005 diagnosis
   (widened band [0.25, 7.00] admits 13 vs 0 signals) but
   OOS n=3 is INCONCLUSIVE, so the candidate is NOT adopted
-  (DEC-012) and v1.0 stays frozen. Phases 6-8 become
-  meaningful only at OOS n>=30 (~10x more OOS data and/or
-  additional symbols under identical discipline).
+  (DEC-012) and v1.0 stays frozen. First n>=30 sample
+  (EXP-007 pooled n=54: net -6.0R, expectancy -0.111R, PF
+  0.818) shows no edge — WEAK, borderline FAILED (DEC-013).
+  Any new hypothesis must be pre-registered against NEW
+  held-out data, never fit to the 54 trades.
 - **MT5 terminal / demo account:** no MetaTrader 5 terminal in
   this environment (Linux). Forward demo (Phase 10) and MQL5
   compilation verification require MT5; MQL5 structural checks
   are automated, runtime verification requires MetaEditor.
-- **Real market data (RESOLVED 2026-10-06):** real US30 M1 data
-  arrived (`data/US30_M1_UTC.csv`, git-ignored) and Phase 5
-  executed on it. Multi-symbol (Phase 9) still needs the other
-  symbols' data.
+- **Real market data (EXPANDED 2026-10-06):** five
+  50k-bar 1-minute files arrived (audits all PASS) and Phase 9
+  executed on them. GER40 still missing; forward demo still
+  needs MT5 + demo account.

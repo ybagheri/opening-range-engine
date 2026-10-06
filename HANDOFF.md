@@ -2,13 +2,33 @@
 
 ## Current Status
 
-- **Phase:** 6 - Parameter Sensitivity (EXP-006
-  EXECUTED; verdict INCONCLUSIVE on OOS n=3 — strategy
-  idea still untested at the n>=30 standard)
-- **Status:** EXP-006 EXECUTED on real US30 data with a
-  pre-registered band; all documents updated; working
+- **Phase:** 9 - Multi-Symbol (EXP-007 EXECUTED:
+  pooled n=54, net -6.000R — WEAK, borderline FAILED;
+  no edge detected)
+- **Status:** EXP-007 EXECUTED on 5 real symbols with a
+  pre-registered config; all documents updated; working
   tree ready to commit.
 - **Overall Progress:** 6 of 13 phases (0-5 complete).
+
+## Phase 9 Evidence `[REAL DATA]` (EXP-007, 2026-10-06)
+
+- Pre-registered identical candidate (OR band [0.25,
+  7.00], TP R1.5, costs 0/0; per-symbol point = tick:
+  XAUUSD 0.01, EURUSD 0.00001, US-indices 0.1) on 5
+  files (all verified 1-minute bars despite `M5`
+  filenames; 50k bars each). All 5 audits PASS.
+- Per-symbol net R: XAUUSD -1.5 (n=14), EURUSD -1.5
+  (n=4), US30 +5.5 (n=12), US500 -6.0 (n=11), NAS100
+  -2.5 (n=13).
+- Pooled: n=54, net -6.000R, expectancy -0.111R, PF
+  0.818; Monte Carlo bootstrap P(profit) 0.236. Verdict:
+  WEAK, borderline FAILED — no edge detected (the
+  `assess` fall-through word PROMISING is explicitly not
+  claimed with negative expectancy and PF<1).
+- Only US30 positive and itself n=12 <30; US-index
+  correlation makes pooled n=54 an upper bound.
+- Registry FROZEN; nothing adopted or tuned on these
+  trades. Full record: `results/MULTI_SYMBOL_REPORT.md`.
 
 ## Phase 6 Evidence `[REAL DATA]` (EXP-006, 2026-10-06)
 
@@ -137,15 +157,20 @@ the basis of results (DEC-011).**
   under strict OOS discipline; v1.0 registry stays
   frozen and the candidate is NOT adopted (INCONCLUSIVE,
   OOS n=3).
+- DEC-013: EXP-007 pooled result (-6.0R, WEAK/borderline
+  FAILED) recorded as evidence with zero tuning —
+  registry stays frozen; new hypotheses need NEW
+  held-out data, never fits to the 54 trades.
 
 ## Next Exact Task
 
-- NEXT: gather ~10x more OOS data (and/or additional
-  symbols under identical OOS discipline) until n>=30;
-  candidate follow-up studies (breakout-extension filter,
-  each pre-registered) only on new held-out data. No EA
-  work; no parameter adoption without OOS n>=30 plus
-  walk-forward + Monte Carlo confirmation.
+- NEXT: Phase 11 Final Strategy Assessment on current
+  evidence (EXP-005 n=0, EXP-006 OOS n=3 INCONCLUSIVE,
+  EXP-007 pooled n=54 WEAK/borderline FAILED): draft the
+  Continue / Modify / Reject decision on quantitative
+  grounds. Lean: the candidate shows no edge; any Modify
+  proposal must name a pre-registered test on new held-out
+  data. No EA work (Phase 12 needs ROBUST evidence, absent).
 
 ## Remaining Phase Tasks
 
@@ -163,10 +188,14 @@ the basis of results (DEC-011).**
       gated on a larger dataset)
 - [ ] Phase 8 - Monte Carlo (machinery run on OOS n=3;
       meaningful only at n>=30)
-- [ ] Phase 9 - Multi-Symbol (gated on EXP-006 + data)
+- [x] Phase 9 - Multi-Symbol (EXP-007: 5 symbols, pooled
+      n=54 net -6.0R, WEAK/borderline FAILED; US30 alone
+      positive at n=12)
 - [ ] Phase 10 - Forward Demo (blocked: demo account + MT5)
-- [ ] Phase 11 - Final Strategy Assessment
-- [ ] Phase 12 - Optional EA (only if justified)
+- [ ] Phase 11 - Final Strategy Assessment (NEXT: decide
+      Continue / Modify / Reject on EXP-005/006/007)
+- [ ] Phase 12 - Optional EA (only if justified; currently
+      no ROBUST evidence — do not start)
 
 ## Do NOT Repeat
 
@@ -181,7 +210,9 @@ the basis of results (DEC-011).**
 ## Important Warnings
 
 - The strategy is NOT assumed profitable. EXP-005 produced
-  zero trades; no edge is claimed. Never claim an edge
+  zero trades, EXP-006 OOS n=3 was INCONCLUSIVE, and
+  EXP-007 pooled n=54 is WEAK/borderline FAILED (-6.0R);
+  no edge is claimed. Never claim an edge
   without OOS, walk-forward, Monte Carlo, cost sensitivity,
   and forward demo evidence.
 - Missing historical data must produce NO TRADE, never a
@@ -193,9 +224,10 @@ the basis of results (DEC-011).**
 2. Read ROADMAP.md.
 3. Read CHANGELOG.md.
 4. Read results/BASELINE_RESULTS.md (EXP-005 evidence).
+  4b. Read results/EXP006_OR_RECALIBRATION.md + results/MULTI_SYMBOL_REPORT.md.
 5. Inspect git status and recent commits.
-6. Continue from the current phase (EXP-006 design, or
-   as directed).
+6. Continue from the current phase (Phase 11 assessment,
+  or as directed).
 7. Do not redo completed work.
 8. Do not change strategy parameters without documenting
    the experiment first.

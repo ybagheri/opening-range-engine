@@ -1,5 +1,34 @@
 # Changelog
 
+## 2026-10-06 — Phase 9: EXP-007 multi-symbol evaluation (pre-registered, pooled WEAK/borderline FAILED)
+
+### Added
+
+- `results/MULTI_SYMBOL_REPORT.md` — full EXP-007 record.
+
+### Changed
+
+- EXP-007 executed on 5 real 1-minute files (mislabeled
+  `M5` filenames — 1-min spacing verified before use;
+  50,000 bars each; all 5 audits PASS, 0 errors) with the
+  identical EXP-006 candidate (no per-symbol tuning;
+  per-symbol point = tick size): XAUUSD -1.500R (n=14),
+  EURUSD -1.500R (n=4), US30 +5.500R (n=12), US500
+  -6.000R (n=11), NAS100 -2.500R (n=13, 3 expired).
+  Pooled n=54, net -6.000R, expectancy -0.111R, PF
+  0.818; Monte Carlo bootstrap P(profit) 0.236. Verdict
+  WEAK, borderline FAILED — no edge detected (the
+  `assess` fall-through word PROMISING explicitly
+  rejected in the report). Registry FROZEN (DEC-013).
+
+### Tests
+
+- 103 tests green (unchanged; no engine code modified).
+
+### Decisions
+
+- DEC-013: pooled result recorded as evidence, zero tuning.
+
 ## 2026-10-06 — Phase 6: EXP-006 OR-filter recalibration study (pre-registered, OOS INCONCLUSIVE)
 
 ### Added
