@@ -2,13 +2,26 @@
 
 ## Current Status
 
-- **Phase:** 9 - Multi-Symbol (EXP-007 EXECUTED:
-  pooled n=54, net -6.000R — WEAK, borderline FAILED;
-  no edge detected)
-- **Status:** EXP-007 EXECUTED on 5 real symbols with a
-  pre-registered config; all documents updated; working
-  tree ready to commit.
+- **Phase:** 11 - Final Strategy Assessment (DECIDED
+  2026-10-06: REJECT — DEC-014; project research COMPLETE,
+  pipeline retained)
+- **Status:** FINAL_ASSESSMENT written; all documents
+  updated; working tree ready to commit.
 - **Overall Progress:** 6 of 13 phases (0-5 complete).
+
+## Phase 11 Evidence — FINAL DECISION `[REAL DATA]` (2026-10-06, DEC-014)
+
+- **REJECT.** v1.0 untestable (never trades); candidate
+  WEAK/borderline FAILED at pooled n=54 (net -6.000R,
+  expectancy -0.111R, PF 0.818, win rate 0.333 vs 0.400
+  breakeven, bootstrap P(profit) 0.236). No edge in any
+  assessable sample; no Modify direction has a priori
+  support. Phases 10/12 CLOSED as not-recommended.
+- Retained: full pipeline + evidence (103 tests green).
+  Re-entry only via a NEW hypothesis on NEW held-out data
+  (OOS n>=30 + WF + MC at stated costs); current data is
+  spent as evaluation material.
+- Full record: `results/FINAL_ASSESSMENT.md`.
 
 ## Phase 9 Evidence `[REAL DATA]` (EXP-007, 2026-10-06)
 
@@ -164,13 +177,11 @@ the basis of results (DEC-011).**
 
 ## Next Exact Task
 
-- NEXT: Phase 11 Final Strategy Assessment on current
-  evidence (EXP-005 n=0, EXP-006 OOS n=3 INCONCLUSIVE,
-  EXP-007 pooled n=54 WEAK/borderline FAILED): draft the
-  Continue / Modify / Reject decision on quantitative
-  grounds. Lean: the candidate shows no edge; any Modify
-  proposal must name a pre-registered test on new held-out
-  data. No EA work (Phase 12 needs ROBUST evidence, absent).
+- Project research COMPLETE (all 13 phases decided: 0-9 and
+  11 executed, 10/12 closed as not-recommended per DEC-014).
+  No further task is open. Only a NEW strategy hypothesis
+  with NEW held-out data re-opens research (see
+  FINAL_ASSESSMENT.md re-entry condition).
 
 ## Remaining Phase Tasks
 
@@ -192,10 +203,10 @@ the basis of results (DEC-011).**
       n=54 net -6.0R, WEAK/borderline FAILED; US30 alone
       positive at n=12)
 - [ ] Phase 10 - Forward Demo (blocked: demo account + MT5)
-- [ ] Phase 11 - Final Strategy Assessment (NEXT: decide
-      Continue / Modify / Reject on EXP-005/006/007)
-- [ ] Phase 12 - Optional EA (only if justified; currently
-      no ROBUST evidence — do not start)
+- [x] Phase 11 - Final Strategy Assessment (DECIDED:
+      REJECT — DEC-014; see FINAL_ASSESSMENT.md)
+- [x] Phase 12 - Optional EA (CLOSED as not-recommended;
+      no validated strategy exists — do not start)
 
 ## Do NOT Repeat
 

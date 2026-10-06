@@ -1,5 +1,36 @@
 # Changelog
 
+## 2026-10-06 — Phase 11: final strategy assessment — REJECT (DEC-014)
+
+### Added
+
+- `results/FINAL_ASSESSMENT.md` — Continue/Modify/Reject
+  decision on EXP-005/006/007 with the spec §20
+  validation-discipline checklist.
+
+### Changed
+
+- Verdict REJECT: v1.0 untestable (never trades);
+  candidate WEAK/borderline FAILED at pooled n=54 (net
+  -6.000R, expectancy -0.111R, PF 0.818, win rate 0.333
+  vs 0.400 breakeven, bootstrap P(profit) 0.236;
+  zero-cost result is an upper bound on live
+  performance). No Continue (no edge anywhere
+  assessable); no Modify now (no direction has a priori
+  support — fitting to the 54 trades would be
+  overfitting). Phases 10/12 CLOSED as not-recommended.
+  Pipeline + evidence retained; re-entry condition
+  documented (new hypothesis, new held-out data, OOS
+  n>=30 + WF + MC at stated costs).
+
+### Tests
+
+- 103 tests green (unchanged; no engine code modified).
+
+### Decisions
+
+- DEC-014: REJECT; close Phases 10/12; data spent as evaluation.
+
 ## 2026-10-06 — Phase 9: EXP-007 multi-symbol evaluation (pre-registered, pooled WEAK/borderline FAILED)
 
 ### Added

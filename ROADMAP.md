@@ -122,21 +122,19 @@ Current state, verified evidence, and open gaps are summarised in
   bootstrap P(profit) 0.236 → WEAK, borderline FAILED.
 - Deliverable: `results/MULTI_SYMBOL_REPORT.md`.
 
-### Phase 10 — Forward Demo `[B]` blocked: requires demo account + MT5
+### Phase 10 — Forward Demo `[x]` CLOSED as not-recommended (DEC-014: nothing validated to forward-test; MT5 absence moot)
 
 - Real-time demo recording of every signal.
-- Deliverable: `FORWARD_TEST_REPORT.md`.
+- Deliverable: `FORWARD_TEST_REPORT.md` — not produced; demoing
+  a rejected candidate has no evidentiary value.
 
-### Phase 11 — Final Strategy Assessment `[~]` NEXT: Continue / Modify / Reject on EXP-005 (n=0) + EXP-006 (OOS n=3) + EXP-007 (pooled n=54, WEAK/borderline FAILED)
+### Phase 11 — Final Strategy Assessment `[x]` DECIDED 2026-10-06: REJECT (DEC-014)
 
-- Decide: Continue / Modify / Reject, on quantitative evidence.
-- EXP-005 flags a Modify candidate (OR-filter calibration),
-  gated on the EXP-006 experiment.
+- EXP-005 (n=0) + EXP-006 (OOS n=3) + EXP-007 (pooled n=54,
+  WEAK/borderline FAILED): no edge in any assessable sample.
+- Deliverable: `results/FINAL_ASSESSMENT.md`.
 
-### Phase 12 — Optional EA `[ ]`
-
-- Only if Phases 5–11 justify it. Must reproduce the validated
-  strategy exactly; no silent new logic.
+### Phase 12 — Optional EA `[x]` CLOSED as not-recommended (DEC-014: no validated strategy exists to reproduce)
 
 ## Blockers
 

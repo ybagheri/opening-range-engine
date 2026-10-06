@@ -124,3 +124,19 @@ the reason, and the date.
   negative expectancy and PF<1 the honest reading is WEAK
   leaning FAILED.
 - **Date:** 2026-10-06
+
+## DEC-014 — Final assessment: REJECT; close Phases 10/12 as not-recommended
+
+- **Decision:** The strategy is REJECTED for forward demo, EA
+  development, and live use in both tested forms (v1.0: untestable,
+  never trades; candidate: WEAK/borderline FAILED at pooled n=54,
+  net -6.000R, expectancy -0.111R, PF 0.818). Phases 10 and 12 are
+  closed as not-recommended. The pipeline and all evidence are
+  retained for future research. Re-entry requires a new hypothesis
+  pre-registered against new held-out data with OOS n>=30 plus
+  walk-forward + Monte Carlo confirmation at stated costs; current
+  data is spent as evaluation material.
+- **Reason:** No assessable sample shows an edge; costs (run at zero)
+  can only worsen the result; no modification direction has a priori
+  support, so Modify would be overfitting by definition.
+- **Date:** 2026-10-06
