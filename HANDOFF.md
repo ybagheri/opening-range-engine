@@ -2,13 +2,36 @@
 
 ## Current Status
 
-- **Phase:** 6 - Parameter Sensitivity (GATED: see EXP-005
-  finding below; next action is the EXP-006 recalibration
-  study, PLANNED and requiring approval)
-- **Status:** EXP-005 EXECUTED on real US30 data; all
-  documents updated; 103 tests green; working tree ready
-  to commit.
+- **Phase:** 6 - Parameter Sensitivity (EXP-006
+  EXECUTED; verdict INCONCLUSIVE on OOS n=3 — strategy
+  idea still untested at the n>=30 standard)
+- **Status:** EXP-006 EXECUTED on real US30 data with a
+  pre-registered band; all documents updated; working
+  tree ready to commit.
 - **Overall Progress:** 6 of 13 phases (0-5 complete).
+
+## Phase 6 Evidence `[REAL DATA]` (EXP-006, 2026-10-06)
+
+- Pre-registered candidate (band chosen from TRAIN
+  OR/ATR distribution only, before any OOS run):
+  `min_or_atr = 0.25` (unchanged), `max_or_atr = 7.00`
+  (ceiling above train max 6.84). Train: 21 valid days,
+  min 0.97 / median 2.32 / max 6.84.
+- OOS evaluation (2026-09-24..2026-10-05, 10 NY days):
+  replay 3 signals; backtest -1.0 / +1.5 / -1.0 R =
+  net -0.500R, expectancy -0.167R.
+- Sensitivity (OOS slice): TP cells sign-unstable
+  (+1.0/-0.75/-0.5/-0.25/0.0); OR-duration cells
+  degenerate n=0 (disclosed machinery limitation).
+  Monte Carlo n=10,000 both modes; bootstrap P(profit)
+  0.255. Assessment: INCONCLUSIVE (n=3 < 30).
+  Walk-forward unformable inside 10-day OOS.
+- Full-sample context (NOT evidence): 13 trades, net
+  +7.000R (train +8.0R in-sample / validation -0.5R /
+  OOS -0.5R). Next binding constraint: breakout-extension
+  filter (17 full-sample rejections) — future study.
+- v1.0 registry FROZEN; candidate NOT adopted. Full
+  record: `results/EXP006_OR_RECALIBRATION.md`.
 
 ## Phase 5 Evidence `[REAL DATA]` (EXP-005, 2026-10-06)
 
@@ -110,17 +133,19 @@ the basis of results (DEC-011).**
 - DEC-010: gap severity is impact-based, never silent.
 - DEC-011: EXP-005 baseline recorded as-is; v1.0
   parameters NOT changed despite the zero-trade outcome.
+- DEC-012: EXP-006 candidate band [0.25, 7.00] tested
+  under strict OOS discipline; v1.0 registry stays
+  frozen and the candidate is NOT adopted (INCONCLUSIVE,
+  OOS n=3).
 
 ## Next Exact Task
 
-- NEXT: EXP-006 (PLANNED, requires explicit approval
-  before any parameter change): OR-filter recalibration
-  study. Measure OR/ATR_M5 on the train block
-  (2026-08-13..2026-09-13), pre-register a band
-  hypothesis (e.g. wider MaxOR_ATR), then evaluate
-  strictly on the held-out OOS block (2026-09-24..
-  2026-10-05) with walk-forward + Monte Carlo. Record
-  the experiment in EXPERIMENT_LOG.md before running it.
+- NEXT: gather ~10x more OOS data (and/or additional
+  symbols under identical OOS discipline) until n>=30;
+  candidate follow-up studies (breakout-extension filter,
+  each pre-registered) only on new held-out data. No EA
+  work; no parameter adoption without OOS n>=30 plus
+  walk-forward + Monte Carlo confirmation.
 
 ## Remaining Phase Tasks
 
@@ -131,9 +156,13 @@ the basis of results (DEC-011).**
 - [x] Phase 4 - Data Quality Audit
 - [x] Phase 5 - Baseline Research (EXP-005: 0 trades;
       v1.0 OR filter mis-calibrated for real US30)
-- [ ] Phase 6 - Parameter Sensitivity (gated on EXP-006)
-- [ ] Phase 7 - Walk Forward (gated on EXP-006)
-- [ ] Phase 8 - Monte Carlo (gated on EXP-006)
+- [ ] Phase 6 - Parameter Sensitivity (EXP-006 executed:
+      OOS n=3 INCONCLUSIVE; OR-duration cells disclose a
+      machinery limitation; needs n>=30 to mean anything)
+- [ ] Phase 7 - Walk Forward (unformable inside 10-day OOS;
+      gated on a larger dataset)
+- [ ] Phase 8 - Monte Carlo (machinery run on OOS n=3;
+      meaningful only at n>=30)
 - [ ] Phase 9 - Multi-Symbol (gated on EXP-006 + data)
 - [ ] Phase 10 - Forward Demo (blocked: demo account + MT5)
 - [ ] Phase 11 - Final Strategy Assessment

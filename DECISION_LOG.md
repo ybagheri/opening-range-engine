@@ -92,5 +92,20 @@ the reason, and the date.
 ## DEC-011 — EXP-005 baseline recorded as-is; v1.0 parameters NOT changed
 
 - **Decision:** The Phase 5 baseline on real US30 data (0 trades in 46 days) is recorded verbatim. Despite the zero-trade outcome, no parameter (notably MaxOR_ATR) was altered.
-- **Reason:** The baseline is the control experiment; changing parameters to "fix" the result would destroy its evidentiary value. The observed OR/ATR_M5 distribution (median ~2.5 vs the frozen band [0.25, 1.00]) is a finding, and any recalibration must go through a pre-registered, OOS-validated experiment (EXP-006, PLANNED).
+- **Reason:** The baseline is the control experiment; changing parameters to "fix" the result would destroy its evidentiary value. The observed OR/ATR_M5 distribution (median ~2.5 vs the frozen band [0.25, 1.00]) is a finding, and any recalibration must go through a pre-registered, OOS-validated   experiment (EXP-006, PLANNED).
+- **Date:** 2026-10-06
+
+## DEC-012 — EXP-006 candidate NOT adopted; v1.0 stays frozen
+
+- **Decision:** The pre-registered candidate band [0.25, 7.00]
+  x ATR_M5(14) remains a research candidate with an INCONCLUSIVE
+  OOS record (n=3, net -0.500R). It is not written into the
+  parameter registry, `StrategyConfig` defaults, or the MQL5
+  indicator. v1.0 values are unchanged.
+- **Reason:** Adoption requires OOS n>=30 plus walk-forward and
+  Monte Carlo confirmation under the `assess` rules; n=3 meets
+  none of that. The band was selected from the train OR/ATR
+  distribution (not from P&L), and the train/OOS split
+  (+8.0R in-sample vs -0.5R OOS, both tiny samples) confirms
+  that only held-out evidence may move parameters.
 - **Date:** 2026-10-06

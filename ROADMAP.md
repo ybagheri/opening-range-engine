@@ -87,19 +87,26 @@ Current state, verified evidence, and open gaps are summarised in
   ~2.5, range 0.97-6.84). Assessment: INCONCLUSIVE (n=0).
   No parameter changed; EXP-006 recalibration study PLANNED.
 
-### Phase 6 — Parameter Sensitivity `[~]` machinery built; EXP-005 grid run (all cells n=0)
+### Phase 6 — Parameter Sensitivity `[~]` EXP-006 executed (OOS n=3, INCONCLUSIVE)
 
 - Test nearby parameters (TP, OR duration, trade window).
 - Deliverable: `PARAMETER_SENSITIVITY.md`.
-- Note: a meaningful sensitivity study requires the OR gate to
-  admit trades (depends on EXP-006).
+- EXP-006 (2026-10-06): pre-registered band [0.25, 7.00]
+  evaluated strictly OOS — 3 signals, net -0.500R; TP cells
+  sign-unstable; OR-duration cells degenerate (disclosed
+  machinery limitation: fixed [09:30,09:45) window vs N-bar
+  expectation in `session.py`). Meaningful sensitivity needs
+  n>=30. Record: `results/EXP006_OR_RECALIBRATION.md`.
 
-### Phase 7 — Walk Forward `[~]` machinery built; windows defined (22x 20d/5d)
+### Phase 7 — Walk Forward `[~]` unformable inside 10-day OOS; gated on larger dataset
 
 - Rolling walk-forward analysis.
 - Deliverable: `WALK_FORWARD_REPORT.md`.
+- No 20d/5d window fits the 10-day OOS block; full-sample
+  WF would mix band-selection data into tests (OOS
+  violation) and was not run as evidence.
 
-### Phase 8 — Monte Carlo `[~]` machinery built (10k sims, seeded); run on empty R series
+### Phase 8 — Monte Carlo `[~]` run on OOS n=3 (bootstrap P(profit) 0.255); meaningful only at n>=30
 
 - ≥ 10,000 simulations.
 - Deliverable: `MONTE_CARLO_REPORT.md`.
@@ -114,7 +121,7 @@ Current state, verified evidence, and open gaps are summarised in
 - Real-time demo recording of every signal.
 - Deliverable: `FORWARD_TEST_REPORT.md`.
 
-### Phase 11 — Final Strategy Assessment `[~]` machinery built; EXP-005 verdict INCONCLUSIVE
+### Phase 11 — Final Strategy Assessment `[~]` EXP-005 INCONCLUSIVE (n=0); EXP-006 INCONCLUSIVE (OOS n=3)
 
 - Decide: Continue / Modify / Reject, on quantitative evidence.
 - EXP-005 flags a Modify candidate (OR-filter calibration),
@@ -127,13 +134,13 @@ Current state, verified evidence, and open gaps are summarised in
 
 ## Blockers
 
-- **v1.0 parameter calibration:** EXP-005 (real US30, 46 days)
-  shows the frozen OR-size band [0.25, 1.00] x ATR_M5(14)
-  rejects 100% of valid days, so the strategy never trades and
-  Phases 6-9 cannot produce meaningful statistics. Unblocked only
-  by a pre-registered recalibration experiment (EXP-006, PLANNED,
-  requires approval). No parameter may be changed outside that
-  experiment (DEC-011).
+- **v1.0 parameter calibration (PARTIALLY UNBLOCKED
+  2026-10-06):** EXP-006 confirmed the EXP-005 diagnosis
+  (widened band [0.25, 7.00] admits 13 vs 0 signals) but
+  OOS n=3 is INCONCLUSIVE, so the candidate is NOT adopted
+  (DEC-012) and v1.0 stays frozen. Phases 6-8 become
+  meaningful only at OOS n>=30 (~10x more OOS data and/or
+  additional symbols under identical discipline).
 - **MT5 terminal / demo account:** no MetaTrader 5 terminal in
   this environment (Linux). Forward demo (Phase 10) and MQL5
   compilation verification require MT5; MQL5 structural checks

@@ -1,5 +1,35 @@
 # Changelog
 
+## 2026-10-06 — Phase 6: EXP-006 OR-filter recalibration study (pre-registered, OOS INCONCLUSIVE)
+
+### Added
+
+- `results/EXP006_OR_RECALIBRATION.md` — full EXP-006 record.
+
+### Changed
+
+- EXP-006 executed on `data/US30_M1_UTC.csv` with the
+  pre-registered candidate (`min_or_atr` 0.25 unchanged,
+  `max_or_atr` 7.00 from the train OR/ATR distribution:
+  n=21, min 0.97 / median 2.32 / max 6.84): OOS replay
+  (2026-09-24..2026-10-05) 3 signals; backtest -1.0 /
+  +1.5 / -1.0 R = net -0.500R; TP sensitivity
+  sign-unstable; OR-duration cells degenerate n=0
+  (disclosed `session.py` machinery limitation); Monte
+  Carlo n=10,000 (bootstrap P(profit) 0.255); assessment
+  INCONCLUSIVE (n=3 < 30); walk-forward unformable in
+  the 10-day OOS block. Full-sample context (not
+  evidence): 13 trades, net +7.000R. v1.0 registry
+  FROZEN; candidate NOT adopted.
+
+### Tests
+
+- 103 tests green (unchanged; no engine code modified).
+
+### Decisions
+
+- DEC-012: EXP-006 candidate not adopted; v1.0 stays frozen.
+
 All meaningful changes to the project are recorded here. Dates use
 ISO format. Commit hashes are filled after each commit.
 

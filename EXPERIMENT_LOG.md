@@ -125,7 +125,60 @@ tagged `[SYNTHETIC]` and never represent market evidence.
 
 ---
 
-- **EXP-006** (PLANNED) — OR-filter recalibration study:
-  measure OR/ATR_M5 on the train block, pre-register a
-  band hypothesis, evaluate only on the OOS block with
-  walk-forward + Monte Carlo. Not yet approved.
+## EXP-006 — OR-filter recalibration study `[REAL DATA]` (APPROVED 2026-10-06, pre-registered)
+
+- **Date pre-registered:** 2026-10-06 (band hypothesis fixed
+  BEFORE any OOS evaluation; v1.0 registry untouched).
+- **Hypothesis:** The v1.0 OR-size band [0.25, 1.00] x
+  ATR_M5(14) was calibrated for a different volatility
+  regime. On real US30, the 15-minute OR is ~1-7x the
+  M5-ATR(14); widening ONLY the upper bound to 7.00 (lower
+  bound unchanged) admits a usable sample without
+  re-fitting to OOS outcomes.
+- **In-sample measurement (train block ONLY,
+  2026-08-13..2026-09-13, 27 NY days):** 21 valid OR days;
+  OR/ATR_M5 min 0.97, median 2.32, max 6.84, p90 ~4.3,
+  p95 ~6.6; 1 of 21 inside v1.0 band. Lower bound needs
+  no change (train min 0.97 >> 0.25).
+- **Pre-registered candidate (single hypothesis, no grid
+  search):** `min_or_atr = 0.25` (unchanged),
+  `max_or_atr = 7.00` (ceiling above train max 6.84,
+  rounded up). All other v1.0 parameters unchanged
+  (OR 15 min, TP R1.5, costs 0/0). Rationale documented
+  before seeing any OOS result.
+- **Parameters:** candidate config above vs v1.0 control.
+- **Dataset:** `data/US30_M1_UTC.csv` (same 50,000 real
+  M1 bars as EXP-005).
+- **Training period:** 2026-08-13..2026-09-13 (band
+  selection ONLY).
+- **Validation period:** 2026-09-14..2026-09-23
+  (untouched by band selection; reported for completeness).
+- **OOS period:** 2026-09-24..2026-10-05 (10 NY days;
+  STRICT evaluation — replay -> backtest -> assessment ->
+  walk-forward windows -> Monte Carlo n=10,000 seeded).
+- **Results:**
+  - OOS replay (2026-09-24..2026-10-05, 10 days): 3
+    signals (09-28 BEARISH, 09-30 BEARISH, 10-02 BULLISH).
+  - OOS backtest (costs 0/0): -1.0 / +1.5 / -1.0 R =
+    net -0.500R, expectancy -0.167R.
+  - OOS sensitivity: TP 1.0/1.25/1.5/1.75/2.0 R -> net
+    +1.000 / -0.750 / -0.500 / -0.250 / +0.000 (n=3 each,
+    sign-unstable); OR-duration cells degenerate n=0
+    (machinery limitation: fixed [09:30,09:45) window vs
+    N-bar expectation, disclosed in results file).
+  - Monte Carlo (n=10,000, seed 42): permute P(profit)
+    0.000; bootstrap P(profit) 0.255.
+  - Assessment: INCONCLUSIVE (n=3 < 30). Walk-forward:
+    unformable inside the 10-day OOS block.
+  - Full-sample context (NOT evidence): 13 trades, net
+    +7.000R (train +8.0R in-sample / validation -0.5R /
+    OOS -0.5R).
+- **Conclusion:** The widened band admits trades (13 vs 0
+  under v1.0), confirming the EXP-005 diagnosis, but OOS
+  n=3 supports no profitability claim in either direction.
+  Next binding constraint is the breakout-extension filter
+  (17 full-sample rejections) — a future study, unchanged.
+- **Decision:** v1.0 registry stays FROZEN. The [0.25,
+  7.00] band remains a research candidate with an
+  INCONCLUSIVE record — not adopted. Full record:
+  `results/EXP006_OR_RECALIBRATION.md`.
