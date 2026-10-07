@@ -7,7 +7,11 @@
   pipeline retained)
 - **Status:** FINAL_ASSESSMENT written; all documents
   updated; working tree ready to commit.
-- **Overall Progress:** 6 of 13 phases (0-5 complete).
+- **Overall Progress:** Research COMPLETE. Phases
+  0-6 and 9 executed on real data; Phase 11 decided
+  REJECT (DEC-014); Phases 7/8 documented-limited
+  (need n>=30); Phases 10 and 12 CLOSED as
+  not-recommended.
 
 ## Phase 11 Evidence — FINAL DECISION `[REAL DATA]` (2026-10-06, DEC-014)
 
@@ -92,9 +96,25 @@
 
 ## Last Completed Work
 
+- Phase 11 (DEC-014): final strategy assessment —
+  REJECT. `results/FINAL_ASSESSMENT.md` written;
+  Phases 10/12 closed as not-recommended.
+- Phase 9 (EXP-007): pre-registered multi-symbol
+  evaluation on 5 new real datasets (`data/`
+  now holds XAUUSD/EURUSD/US30/US500/NAS100
+  1-minute CSVs, 50k bars each; all audits PASS).
+  Pooled n=54, net -6.000R, expectancy -0.111R,
+  PF 0.818, MC bootstrap P(profit) 0.236 ->
+  WEAK/borderline FAILED. `results/MULTI_SYMBOL_REPORT.md`.
+- Phase 6 (EXP-006): pre-registered OR-filter
+  recalibration (band [0.25, 7.00] from TRAIN
+  block only). OOS n=3, net -0.500R ->
+  INCONCLUSIVE; candidate NOT adopted.
+  `results/EXP006_OR_RECALIBRATION.md`.
 - Phase 5 (EXP-005): real-data baseline executed
-  end-to-end (audit -> replay -> backtest -> splits ->
-  sensitivity -> walk-forward -> Monte Carlo -> assess).
+  end-to-end (audit -> replay -> backtest -> splits
+  -> sensitivity -> walk-forward -> Monte Carlo ->
+  assess).
 - `engine/data/loader.py`: MT5 export-format support
   (case-insensitive headers, TickVolume/RealVolume ->
   volume, dot-dates with seconds).
@@ -154,6 +174,17 @@ the basis of results (DEC-011).**
   days): min 0.97, median ~2.5, max 6.84; 1 of 36 days
   inside the v1.0 band. v1.0's OR filter is
   mis-calibrated for US30 opening volatility.
+- EXP-006: candidate band [0.25, 7.00] admits trades
+  (13 full-sample vs 0 under v1.0) but OOS n=3 is
+  INCONCLUSIVE (net -0.500R); sensitivity sign-unstable.
+- EXP-007: identical candidate across 5 symbols —
+  pooled n=54 net -6.000R, expectancy -0.111R,
+  PF 0.818, win rate 0.333 vs 0.400 breakeven,
+  MC bootstrap P(profit) 0.236 -> WEAK/borderline
+  FAILED. Only US30 positive (+5.5R, n=12 < 30);
+  elevating it ex post would be the multiple-comparison
+  fallacy. Zero-cost result is an UPPER BOUND (costs
+  can only subtract, EXP-004 monotonicity).
 
 ## Decisions Made
 
@@ -236,9 +267,12 @@ the basis of results (DEC-011).**
 3. Read CHANGELOG.md.
 4. Read results/BASELINE_RESULTS.md (EXP-005 evidence).
   4b. Read results/EXP006_OR_RECALIBRATION.md + results/MULTI_SYMBOL_REPORT.md.
+  4c. Read results/FINAL_ASSESSMENT.md (DEC-014).
 5. Inspect git status and recent commits.
-6. Continue from the current phase (Phase 11 assessment,
-  or as directed).
+6. Project research is COMPLETE - no open task.
+   Re-open only with a NEW hypothesis pre-registered
+   against NEW held-out data (re-entry condition in
+   FINAL_ASSESSMENT.md).
 7. Do not redo completed work.
 8. Do not change strategy parameters without documenting
    the experiment first.
